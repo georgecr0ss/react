@@ -60,9 +60,50 @@ const todoApp = combineReducers({
 })
 const store = createStore(todoApp)
 
+const FliterLink = ({
+  filter,
+  currentFilter,
+  children
+}) => {
+  if ( filter === currentFilter ) {
+    console.log("text");
+    return <span> {children} </span>
+  }
+  return (
+    <a href="#" onClick = {e => {
+      e.preventDefault()
+      store.dispatch({
+        type: 'SET_VISIBILITY_FILTER',
+        filter
+      })
+    }}> {children} </a>
+  )
+}
+
+const getVisivleTodos = (
+  todos,
+  filter
+) => {
+  switch (filter) {
+    case 'SHOW_ALL':
+      return todos;
+    case 'SHOW_ACTIVE':
+      return todos.filter(t => !t.completed )
+    case 'SHOW_COMPLITED':
+     return todos.filter(t => t.completed)
+  }
+}
 let nextTodoId = 0
 class TodoApp extends React.Component {
   render() {
+    const {
+      todos,
+      visibilityFilter
+    } = this.props
+    const visibleTodos = getVisivleTodos(
+      todos,
+      visibilityFilter
+    )
     return (
       <div>
       <input ref={node => {
@@ -79,11 +120,10 @@ class TodoApp extends React.Component {
         Add Todo
         </button>
         <ul>
-          {this.props.todos.map(todo =>
+          {visibleTodos.map(todo =>
             <li
               key={todo.id}
               onClick={() => {
-                console.log("test");
                 store.dispatch({
                   type: 'TOGGLE_TODO',
                   id: todo.id
@@ -97,6 +137,23 @@ class TodoApp extends React.Component {
             </li>
           )}
         </ul>
+        <p>
+          Show: {" "}
+          <FliterLink
+            filter='SHOW_ALL'
+            currentFilter={visibilityFilter}
+          > All </FliterLink>
+          {", "}
+          <FliterLink
+            filter='SHOW_ACTIVE'
+            currentFilter={visibilityFilter}
+          > Active </FliterLink>
+          {", "}
+          <FliterLink
+            filter='SHOW_COMPLITED'
+            currentFilter={visibilityFilter}
+          > Complited </FliterLink>
+        </p>
       </div>
     )
   }
@@ -104,7 +161,7 @@ class TodoApp extends React.Component {
 const render = () => {
   ReactDOM.render(
     <TodoApp
-      todos={store.getState().todos}
+      {...store.getState()}
     />,
     document.getElementById('root'))
 }
