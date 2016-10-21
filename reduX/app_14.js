@@ -1,4 +1,4 @@
-import { createStore, combineReducers } from 'redux'
+import { createStore } from 'redux'
 
 const todo = (state, action) => {
   switch (action.type) {
@@ -53,27 +53,30 @@ const todos = (state = [], action) => {
       break;
   }
 }
-//combineReducers function form scratch
-const combineReducersM = (reducers) => {
-  return (state = {}, action) => {
-    return Object.keys(reducers).reduce(
-      (nextState, key) => {
-        nextState[key] = reducers[key](
-          state[key],
-          action
-        );
-        console.warn(  nextState[key]);
-        return nextState
-      },
-      {}
-    );
+
+const todoApp = (state = {}, action) => {
+  console.warn( todos(
+    state.todos,
+    action
+  ));
+  console.warn(visibilityFilter(
+    state.visibilityFilter,
+    action
+  ));
+  return {
+    todos: todos(
+      state.todos,
+      action
+    ),
+    visibilityFilter: visibilityFilter(
+      state.visibilityFilter,
+      action
+    )
   }
 }
-const todoApp = combineReducersM({
-  todos,
-  visibilityFilter
-})
+
 const store = createStore(todoApp)
+
 
 console.log("Current state:");
 console.log(store.getState());
