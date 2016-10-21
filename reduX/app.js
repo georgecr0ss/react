@@ -1,3 +1,5 @@
+import { createStore } from 'redux'
+
 const todo = (state, action) => {
   switch (action.type) {
     case "ADD_TODO":
@@ -38,3 +40,41 @@ const todos = (state = [], action) => {
       break;
   }
 }
+
+const store = createStore(todos)
+
+const visibilityFilter = (
+  state = 'SHOW_ALL',
+  action
+) => {
+  switch (action.type) {
+    case 'SET_VISIBILITY_FILTER':
+      return action.filter
+    default:
+      return state
+  }
+}
+
+console.log("Current state:");
+console.log(store.getState());
+console.log("---------------");
+
+console.log("Dispatching ADD_TODO");
+store.dispatch({
+  type:"ADD_TODO",
+  id: 0,
+  text: "Learn Redux"
+})
+console.log("Current state:");
+console.log(store.getState());
+console.log("---------------");
+
+console.log("Dispatching ADD_TODO");
+store.dispatch({
+  type:"ADD_TODO",
+  id: 1,
+  text: "Go shoping"
+})
+console.log("Current state:");
+console.log(store.getState());
+console.log("---------------");
