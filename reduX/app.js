@@ -26,7 +26,6 @@ const todo = (state, action) => {
 
   }
 }
-
 const visibilityFilter = (
   state = 'SHOW_ALL',
   action
@@ -60,6 +59,7 @@ const todoApp = combineReducers({
   visibilityFilter
 })
 const store = createStore(todoApp)
+
 let nextTodoId = 0
 class TodoApp extends React.Component {
   render() {
@@ -80,7 +80,19 @@ class TodoApp extends React.Component {
         </button>
         <ul>
           {this.props.todos.map(todo =>
-            <li key={todo.id}>
+            <li
+              key={todo.id}
+              onClick={() => {
+                console.log("test");
+                store.dispatch({
+                  type: 'TOGGLE_TODO',
+                  id: todo.id
+                })
+              }}
+              style={{
+                textDecoration: todo.completed ? 'line-through' : 'none'
+              }}
+            >
               {todo.text}
             </li>
           )}
