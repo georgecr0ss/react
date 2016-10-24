@@ -3,29 +3,6 @@ import { Provider, connect } from 'react-redux'
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-//Action creators
-let nextTodoId = 0
-const addTodo = (text) => {
-  return {
-    type: 'ADD_TODO',
-    text,
-    id: nextTodoId++
-  }
-}
-
-const setVisibilityFilter = (filter) => {
-  return {
-    type: 'SET_VISIBILITY_FILTER',
-    filter
-  }
-}
-
-const toggleTodo = (id) => {
-  return {
-    type: 'TOGGLE_TODO',
-    id
-  }
-}
 const todo = (state, action) => {
   switch (action.type) {
     case "ADD_TODO":
@@ -102,19 +79,20 @@ const Link = ({
 }
 
 const mapStateToLinkProps = (
-  state,
-  ownProps
+  state
 ) => {
   return {
-    active: ownProps.filter === state.visibilityFilter
+    active: state.filter === state.visibilityFilter
   }
 }
 
-const mapDispatchToLinkProps = (dispatch,ownProps) => {
-  console.log(ownProps);
+const mapDispatchToLinkProps = (dispatch) => {
   return {
     onClick: () => {
-      dispatch(setVisibilityFilter(ownProps.filter))
+      dispatch({
+        type: 'SET_VISIBILITY_FILTER',
+        filter: ownProps.filter
+      })
     }
   }
 }
@@ -124,6 +102,43 @@ const FliterLink = connect(
   mapDispatchToLinkProps
 )(Link)
 
+// class FliterLink extends React.Component {
+//   componentDidMount() {
+//     const { store } = this.context
+//     this.unsubscribe = store.subscribe(() =>
+//       this.forceUpdate()
+//     )
+//   }
+//
+//   componentWillUnmount() {
+//     this.unsubscribe()
+//   }
+//
+//   render() {
+//     const props = this.props
+//     const { store } = this.context
+//     const state = store.getState()
+//
+//     return(
+//       <Link
+//         active={
+//           props.filter === state.visibilityFilter
+//         }
+//         onClick = {() => {
+//           store.dispatch({
+//             type: 'SET_VISIBILITY_FILTER',
+//             filter: props.filter
+//           })
+//         }}
+//       >{props.children}</Link>
+//     )
+//
+//   }
+// }
+
+// FliterLink.contextTypes = {
+//   store: React.PropTypes.object
+// }
 const Footer = () => {
   return(
     <p>
@@ -157,18 +172,21 @@ const Todo = ( {onClick,
     )
 }
 
+
 const TodoList = ({todos, onTodoClick}) => {
-  console.log(todos, onTodoClick)
+    console.log(todos, onTodoClick)
   return (<ul>
-    {todos.map(todo =>
-      <Todo
-        key={todo.id}
-        {...todo}
-        onClick={() => onTodoClick(todo.id)}
-      />
-    )}
-  </ul>)
+      {todos.map(todo =>
+        <Todo
+          key={todo.id}
+          {...todo}
+          onClick={() => onTodoClick(todo.id)}
+        />
+      )}
+    </ul>)
 }
+
+let nextTodoId = 0
 let AddTodo = ({dispatch}) => {
   let input
   return(
@@ -177,7 +195,11 @@ let AddTodo = ({dispatch}) => {
           input = node
         }}  />
         <button onClick={() => {
-          dispatch(addTodo(input.value))
+          dispatch({
+            type: 'ADD_TODO',
+            text: input.value,
+            id: nextTodoId++
+          })
           input.value = ''
         }}>
         Add Todo
@@ -214,7 +236,10 @@ const mapStateToTodoProps = (state) => {
 const mapDispatchToTodoProps = (dispatch) => {
   return {
     onTodoClick: (id) => {
-        dispatch(toggleTodo(id))
+        dispatch({
+          type: 'TOGGLE_TODO',
+        id
+      })
     }
   }
 }
@@ -224,6 +249,52 @@ const VisibleTodoList = connect(
   mapDispatchToTodoProps
 )(TodoList)
 
+//REACT_REDUX Module
+//
+// class VisibleTodoList extends React.Component {
+//   componentDidMount() {
+//     const { store } = this.context
+//     this.unsubscribe = store.subscribe(() =>
+//       this.forceUpdate()
+//     )
+//   }
+//
+//   componentWillUnmount() {
+//     this.unsubscribe()
+//   }
+//
+//   render( ) {
+//     const props = this.props
+//       const { store } = this.context
+//     const state = store.getState()
+//
+//     return (
+//
+//       <TodoList
+//         todos={}
+//         onTodoClick = {id => {
+//         }}
+//         />
+//     )
+//   }
+// }
+// VisibleTodoList.contextTypes = {
+//   store: React.PropTypes.object
+// }
+// class Provider extends React.Component {
+//   getChildContext() {
+//     return{
+//       store: this.props.store
+//     }
+//   }
+//
+//   render() {
+//     return this.props.children
+//   }
+// }
+// Provider.childContextTypes = {
+//   store: React.PropTypes.object
+// }
 const TodoApp = () => (
   <div>
     <AddTodo />

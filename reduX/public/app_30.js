@@ -1,4 +1,4 @@
-import { createStore, combineReducers } from 'redux'
+mport { createStore, combineReducers } from 'redux'
 import { Provider, connect } from 'react-redux'
 import React from 'react'
 import ReactDOM from 'react-dom'
@@ -20,12 +20,6 @@ const setVisibilityFilter = (filter) => {
   }
 }
 
-const toggleTodo = (id) => {
-  return {
-    type: 'TOGGLE_TODO',
-    id
-  }
-}
 const todo = (state, action) => {
   switch (action.type) {
     case "ADD_TODO":
@@ -214,7 +208,10 @@ const mapStateToTodoProps = (state) => {
 const mapDispatchToTodoProps = (dispatch) => {
   return {
     onTodoClick: (id) => {
-        dispatch(toggleTodo(id))
+        dispatch({
+          type: 'TOGGLE_TODO',
+        id
+      })
     }
   }
 }
