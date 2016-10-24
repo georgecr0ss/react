@@ -111,23 +111,23 @@ class FliterLink extends React.Component {
   }
 }
 
-FliterLink.contextTypes = {
-  store: React.PropTypes.object
-}
-const Footer = () => {
+const Footer = ({store}) => {
   return(
     <p>
       Show: {" "}
       <FliterLink
         filter='SHOW_ALL'
+        store={store}
       > All </FliterLink>
       {", "}
       <FliterLink
         filter='SHOW_ACTIVE'
+        store={store}
       > Active </FliterLink>
       {", "}
       <FliterLink
         filter='SHOW_COMPLITED'
+        store={store}
       > Complited </FliterLink>
     </p>
   )
@@ -181,7 +181,7 @@ const AddTodo = (props, {store}) => {
         </button>
     </div>)
 }
-AddTodo.contextTypes = {
+Add.Todo.contextTypes = {
   store: React.PropTypes.object
 }
 
@@ -244,21 +244,21 @@ class Provider extends React.Component {
   }
 
   render() {
-    return this.props.children
+    return this.props.chidren
   }
 }
 Provider.childContextTypes = {
   store: React.PropTypes.object
 }
-const TodoApp = () => (
+const TodoApp = ({ store }) => (
   <div>
-    <AddTodo />
-    <VisibleTodoList />
-    <Footer/>
+    <AddTodo store={store}  />
+    <VisibleTodoList  store={store}/>
+    <Footer store={store} />
   </div>
 )
 ReactDOM.render(
-  <Provider store={createStore(todoApp)}>
+  <Provider store= { createStore(todoApp) }>
     <TodoApp  />
   </Provider>,
   document.getElementById('root')
