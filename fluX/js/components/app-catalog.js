@@ -2,7 +2,6 @@ import React from 'react';
 import AppStore from '../stores/app-store';
 import CatalogItem from './app-catalogitem';
 
-console.log(CatalogItem);
 function getCatalog () {
   return { items: AppStore.getCatalog() };
 }

@@ -42,6 +42,7 @@ const _addItem = ( item ) => {
   } else {
     _increaseItem( cartItem )
   }
+  console.log(_cartItems);
 }
 
 const _cartTotals = ( qty = 0, total = 0 ) => {
@@ -52,7 +53,6 @@ const _cartTotals = ( qty = 0, total = 0 ) => {
 
   return { qty, total }
 }
-console.log(EventEmitter);
 const AppStore = Object.assign(EventEmitter.prototype, {
   emitChange() {
     this.emit( CHANGE_EVENT )
@@ -76,7 +76,9 @@ const AppStore = Object.assign(EventEmitter.prototype, {
   },
   dispatcherIndex: register( function( action ) {
     // body...
+    console.log(action.actionType)
     switch (action.actionType) {
+
       case AppConstants.ADD_ITEM:
           _addItem( action.item )
         break;
