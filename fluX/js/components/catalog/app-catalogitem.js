@@ -1,6 +1,6 @@
 import React from 'react';
-import AppActions from '../actions/app-actions';
-import CartButton from './app-cart-button';
+import AppActions from '../../actions/app-actions';
+import CartButton from '../cart/app-cart-button';
 
 //CatalogItem is stateless component
 export default (props) => {
@@ -10,7 +10,10 @@ export default (props) => {
       <img src="http://placehold.it/250x250" width="100%"
        className="img-responsive"/>
        <p>{ props.item.summary }</p>
-       <p>{ props.item.cost }</p>
+       <p>{ props.item.cost }
+         <span className="text-success">{props.item.qty && `(${props.item.qty} in cart)`}
+         </span>
+       </p>
        <CartButton
           handler={
            AppActions.addItem.bind(null, props.item)

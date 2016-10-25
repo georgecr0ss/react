@@ -31,18 +31,19 @@ const _increaseItem = ( item ) => item.qty++
 const _decreaseItem = ( item ) => {
   item.qty--
   if ( item.qty ===0 ) {
-    __removeItem( item )
+    _removeItem( item )
   }
 }
 
 const _addItem = ( item ) => {
   const cartItem = _findCartItem( item )
+  console.warn(cartItem);
   if( !cartItem ) {
     _cartItems.push( Object.assign({qty: 1}, item))
   } else {
     _increaseItem( cartItem )
   }
-  console.log(_cartItems);
+  // console.log(_cartItems);
 }
 
 const _cartTotals = ( qty = 0, total = 0 ) => {
@@ -58,9 +59,11 @@ const AppStore = Object.assign(EventEmitter.prototype, {
     this.emit( CHANGE_EVENT )
   },
   addChangeListener( callback ) {
+    console.log(callback);
     this.on( CHANGE_EVENT, callback )
   },
   removeChangeListener( callback ) {
+    console.log(callback);
     this.removeListener( CHANGE_EVENT, callback )
   },
   getCart() {
@@ -76,7 +79,7 @@ const AppStore = Object.assign(EventEmitter.prototype, {
   },
   dispatcherIndex: register( function( action ) {
     // body...
-    console.log(action.actionType)
+    // console.log(action.actionType)
     switch (action.actionType) {
 
       case AppConstants.ADD_ITEM:
