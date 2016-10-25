@@ -49,7 +49,7 @@ const _addItem = ( item ) => {
 const _cartTotals = ( qty = 0, total = 0 ) => {
   _cartItems.forEach( cartItem => {
     qty += cartItem.qty
-    total += cartItem.qty * cartItem.coast
+    total += cartItem.qty * cartItem.cost
   })
 
   return { qty, total }
