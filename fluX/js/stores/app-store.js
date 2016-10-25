@@ -1,12 +1,12 @@
-import AppConstants from '../constants/app-constants'
 import { dispatch, register } from '../dispatchers/app-dispatcher'
-import { EventEmmiter } from 'events'
+import AppConstants from '../constants/app-constants'
+import { EventEmitter } from 'events'
 
 const CHANGE_EVENT = 'change'
 
 var _catalog = []
 
-for (var i = 0; i < 9; i++) {
+for (var i = 1; i < 9; i++) {
   _catalog.push({
     'id': 'Widget' + i,
     'title': 'Widget #' + i,
@@ -18,7 +18,7 @@ for (var i = 0; i < 9; i++) {
 
 var _cartItems = []
 
-const _removeItem = { item } => {
+const _removeItem = (item) => {
   _cartItems.splice( _cartItems.findIndex( i => i === item ), 1 )
 }
 
@@ -28,7 +28,7 @@ const _findCartItem = ( item ) => {
 
 const _increaseItem = ( item ) => item.qty++
 
-cosnt _decreaseItem =( item ) => {
+const _decreaseItem = ( item ) => {
   item.qty--
   if ( item.qty ===0 ) {
     __removeItem( item )
@@ -50,10 +50,10 @@ const _cartTotals = ( qty = 0, total = 0 ) => {
     total += cartItem.qty * cartItem.coast
   })
 
-  retur { qty, total }
+  return { qty, total }
 }
-
-cosnt AppStore = Object.assign(EventEmmiter.prototype, {
+console.log(EventEmitter);
+const AppStore = Object.assign(EventEmitter.prototype, {
   emitChange() {
     this.emit( CHANGE_EVENT )
   },
@@ -68,7 +68,7 @@ cosnt AppStore = Object.assign(EventEmmiter.prototype, {
   },
   getCatalog() {
     return _catalog.map( item => {
-      return Object.assign({}, _cartItems.find( cItem => cItem.id === item.id))
+      return Object.assign({}, item, _cartItems.find( cItem => cItem.id === item.id))
     })
   },
   getCartTotals() {
