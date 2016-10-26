@@ -77,9 +77,7 @@ const AppStore = Object.assign(EventEmitter.prototype, {
   getCartTotals() {
     return _cartTotals()
   },
-  dispatcherIndex: register( function( action ) {
-    // body...
-    // console.log(action.actionType)
+  dispatcherIndex: register( function( action ) { 
     switch (action.actionType) {
 
       case AppConstants.ADD_ITEM:
