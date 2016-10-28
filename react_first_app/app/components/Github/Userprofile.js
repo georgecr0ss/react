@@ -4,7 +4,10 @@ class UserProfile extends React.Component {
   render() {
     return (
       <div>
-        UserProfile {this.props.user}
+        UserProfile
+        <p>Username: {this.props.user}</p>
+        <p>Age: {this.props.bio.age}</p>
+        <p>Job: {this.props.bio.job}</p>
       </div>
     )
   }

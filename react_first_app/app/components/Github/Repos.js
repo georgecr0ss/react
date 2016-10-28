@@ -5,6 +5,7 @@ class Repos extends React.Component {
     return (
       <div>
         REPOSS
+        {this.props.repos}
       </div>
     )
   }

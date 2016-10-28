@@ -9,9 +9,9 @@ class Profile extends React.Component {
   constructor() {
     super()
     this.state = {
-      notes: [],
-      bio: [],
-      reops: []
+      notes: [1,12,3],
+      bio: {age:"24", job: "JS developer"},
+      reops: ["a", "b", "c"]
   }
 }
   render() {
@@ -19,13 +19,13 @@ class Profile extends React.Component {
     return (
       <div className="row" >
         <div className="col-md-4">
-          <UserProfile user={this.props.params.username}/>  
+          <UserProfile user={this.props.params.username} bio={this.state.bio}/>
         </div>
         <div className="col-md-4">
-          <Repos/>
+          <Repos repos={this.state.reops}/>
         </div>
         <div className="col-md-4">
-          <Notes/>
+          <Notes notes={this.state.notes}/>
         </div>
       </div>
     )

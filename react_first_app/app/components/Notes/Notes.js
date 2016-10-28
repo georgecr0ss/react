@@ -5,6 +5,7 @@ class Notes extends React.Component {
     return (
       <div>
         Notes
+        {this.props.notes}
       </div>
     )
   }
