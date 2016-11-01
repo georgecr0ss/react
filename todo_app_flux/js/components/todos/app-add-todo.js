@@ -6,9 +6,7 @@ export default () => {
   let input = ""
   return(
     <div>
-      <input onChange={() => {
-        console.log(input.value);
-      }}
+      <input
       ref = { node => {
         input = node
       }} />
@@ -16,7 +14,7 @@ export default () => {
         TodoActions.addTodo(input.value)
         input.value = ""
       }}>Add todo</button>
-        <AllTodos/> 
+    <AllTodos fields={["Todo", "Created On", "Status"]}/>
     </div>
   )
 }

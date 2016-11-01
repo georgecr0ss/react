@@ -9,11 +9,13 @@ TodoDispatcher.register(action => {
   switch (action.actionType) {
     case TodoConstants.ADD_TODO:
       service.addTodo(action.item);
+      TodoStore.emitChange();
       break;
     case TodoConstants.TOGGLE_TODO:
       service.toggleTodo(action.id);
+      TodoStore.emitChange();
+      break;
   }
-  TodoStore.emitChange();
 });
 
 export default TodoDispatcher;

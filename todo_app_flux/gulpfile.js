@@ -3,7 +3,7 @@ var connect = require('gulp-connect');
 var browserify = require('browserify');
 var source = require('vinyl-source-stream');
 var babelify = require('babelify');
-
+require("time-require")
 gulp.task('webserver', function() {
   connect.server({
     port: 3003,

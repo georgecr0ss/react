@@ -2,13 +2,13 @@ import TodoConstants from '../constants/constants';
 import { EventEmitter } from 'events';
 import _todos from '../service/db';
 
-const CHANGE_EVENT = "pechka";
+const CHANGE_EVENT = "change";
 let visibleTodos = _todos;
 let TodoStore = Object.assign(EventEmitter.prototype, {
   emitChange() {
-    this.emit(CHANGE_EVENT)
+    this.emit(CHANGE_EVENT);
   },
-  addChangeListener( callback ) {
+  addChangeListener( callback ) { 
     this.on(CHANGE_EVENT, callback)
   },
   removeChangeListener( callback ) {

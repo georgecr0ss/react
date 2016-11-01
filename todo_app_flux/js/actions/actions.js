@@ -8,7 +8,9 @@ export default {
       actionType: TodoConstants.ADD_TODO, item
     })
   },
-  toggleTodo() {
-    return "kuche"
+  toggleTodo(id) {
+    TodoDispatcher.dispatch({
+      actionType: TodoConstants.TOGGLE_TODO, id
+    })
   }
 }

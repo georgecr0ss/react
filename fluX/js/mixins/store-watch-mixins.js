@@ -17,6 +17,7 @@ export default ( InnerComponent, stateCallback ) =>
       AppStore.removeChangeListener(this._onChange);
     }
     _onChange() {
+      console.log("update");
       this.setState(
         stateCallback( this.props )
       );

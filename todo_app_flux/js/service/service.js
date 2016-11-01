@@ -9,8 +9,7 @@ export default {
       id: counter++,
       created: date.getDate() + "/" + date.getMonth(),
       completed: false
-    };
-    console.log(_todos);
+    }; 
     _todos.unshift(todo)
   },
   toggleTodo(id) {
