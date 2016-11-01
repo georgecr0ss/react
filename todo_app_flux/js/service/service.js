@@ -1,13 +1,16 @@
 import _todos from './db'
+console.log(_todos);
 let counter = 0
 export default {
   addTodo(item) {
+    let date = new Date();
     let todo = {
-      text: item,
+      todo: item,
       id: counter++,
-      created: Date.getDate() + "/" + Date.getMonth(),
+      created: date.getDate() + "/" + date.getMonth(),
       completed: false
-    }
+    };
+    console.log(_todos);
     _todos.unshift(todo)
   },
   toggleTodo(id) {

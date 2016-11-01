@@ -5,7 +5,7 @@ export default (props) => {
   console.log(props);
   return(
     <div className="container">
-      <Header/>
+      <Header title={"TODO APP"}/>
       {props.children}
     </div>
   )

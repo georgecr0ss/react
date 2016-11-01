@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default () => {
+export default ({title}) => {
   return (
     <div className="row" style={{ borderBottom: '1px solid #ccc' }}>
-      <h4>Ah3h3s Header</h4>
+      <h4>{title}</h4>
     </div>
   )
 }
