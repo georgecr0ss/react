@@ -5,12 +5,13 @@ import AllTodos from './app-all-todos'
 export default () => {
   let input = ""
   return(
-    <div>
-      <input
+    <div className="row">
+      <input className="form-control"
+        style={{width: 250, display:"inline-block"}}
       ref = { node => {
         input = node
       }} />
-      <button onClick = {()=> {
+    <button className="btn" onClick = {()=> {
         TodoActions.addTodo(input.value)
         input.value = ""
       }}>Add todo</button>

@@ -4,12 +4,13 @@ let counter = 0
 export default {
   addTodo(item) {
     let date = new Date();
+    console.log(date.getMonth());
     let todo = {
       todo: item,
       id: counter++,
-      created: date.getDate() + "/" + date.getMonth(),
+      created: date.getDate() + "/" + (date.getMonth() + 1),
       completed: false
-    }; 
+    };
     _todos.unshift(todo)
   },
   toggleTodo(id) {
