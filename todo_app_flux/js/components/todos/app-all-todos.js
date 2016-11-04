@@ -1,44 +1,24 @@
-import React from 'react';
+import React, { Component } from 'react';
+import Todo from './todo';
 import TodoStore from '../../stores/store';
 import TodoActions from '../../actions/actions';
-import Todo from './todo';
-import StoreWatcher from '../../mixins/store-watcher'
-let visibleT = []
+import StoreWatcher from '../../mixins/store-watcher';
 
 function getVisivleTodos() {
-  let todos = TodoStore.getAll();
-  visibleT = todos.todos.map(t => {
-    let id = (todos.todos.length-1 - (t.id-0))
-    return <Todo
-              key={t.id}
-              created={t.created}
-              id={t.id}
-              onClick={()=> {
-                TodoActions.toggleTodo(id)
-              }}
-              completed={t.completed}
-              todo={t.todo}
-            />
-  })
-  return  TodoStore.getAll();
-}
-const AllTodos =(props) => {
-    console.log(props);
-    return(
-      <table className="table table-hover">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>{props.fields[0]}</th>
-            <th>{props.fields[1]}</th>
-            <th>{props.fields[2]}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {visibleT}
-        </tbody>
-      </table>
-    ) ;
+    return TodoStore.getAll();
 }
 
-export default StoreWatcher(AllTodos, getVisivleTodos);
+const AllTodos = (props) => {
+    let todos = props.todos.map(todo => {
+        let id = (props.todos.length-1 - (todo.id-0));
+        return <Todo key={todo.id} item={todo} action={()=>{TodoActions.toggleTodo(id)}} />;
+    });
+
+    return (
+        <tbody>
+          {todos}
+        </tbody>
+    )
+}
+
+export default StoreWatcher(AllTodos, getVisivleTodos)

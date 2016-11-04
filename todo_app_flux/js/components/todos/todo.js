@@ -1,15 +1,16 @@
 import React from 'react'
 
-export default  ({id,completed, onClick, todo, created}) => {
+export default  ({item, id, action}) => {
+  console.log(item.completed);
   return (
     <tr>
-      <td>{id}  <input type="checkbox" onClick={onClick}/></td>
-      <td>{todo}</td>
-      <td>{created}</td>
+      <td>{item.id}  <input type="checkbox" onClick={action}/></td>
+      <td>{item.todo}</td>
+      <td>{item.created}</td>
       <td
       style={{
-        textDecoration: completed ? 'line-through' : 'none'
-      }} >{completed ? "Comleted": "Active"}</td>
+        textDecoration: item.completed ? 'line-through' : 'none'
+      }} >{item.completed ? "Comleted": "Active"}</td>
     </tr>
   )
 }

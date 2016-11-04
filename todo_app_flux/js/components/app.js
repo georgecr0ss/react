@@ -1,14 +1,16 @@
-import React from 'react'
-import Template from './app-template'
-import {IndexRoute, Router, Route, hashHistory } from 'react-router'
-import Todos from './todos/app-all-todos'
-import AddTodo from './todos/app-add-todo'
+import React from 'react';
+import Template from './app-template';
+import {IndexRoute, Router, Route, hashHistory } from 'react-router';
+import Todos from './todos/app-all-todos';
+import AddTodo from './todos/app-add-todo';
+import Caclulator from './calculator/calculator';
+
 export default () => {
-  return (
-    <Router history={hashHistory}>
-      <Route path="/" component={Template}>
-        <IndexRoute component={AddTodo}/>
-      </Route>
-    </Router>
-  )
+    return (
+        <Router history={hashHistory}>
+            <Route path="/" component={Template}>
+                <IndexRoute component={AddTodo}/> 
+            </Route>
+        </Router>
+    )
 }
