@@ -12,5 +12,10 @@ Props.defaultProps = {
 }
 
 Props.propTypes = {
-    name: React.PropTypes.element.isRequired
+    name: (props, propName, componentName) => {
+        console.warn(props, propName, props[propName]);
+        if (!isNaN(props[propName])) {
+            return '';
+        }
+    }
 }

@@ -3,23 +3,6 @@ import { Provider, connect } from 'react-redux'
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-//Action creators
-let nextTodoId = 0
-const addTodo = (text) => ({
-    type: 'ADD_TODO',
-    text,
-    id: nextTodoId++
-});
-
-const setVisibilityFilter = (filter) => ({
-    type: 'SET_VISIBILITY_FILTER',
-    filter
-});
-
-const toggleTodo = (id) => ({
-    type: 'TOGGLE_TODO',
-    id
-});
 const todo = (state, action) => {
   switch (action.type) {
     case "ADD_TODO":
@@ -96,23 +79,66 @@ const Link = ({
 }
 
 const mapStateToLinkProps = (
-  state,
-  ownProps
-) => ({
-    active: ownProps.filter === state.visibilityFilter
-});
+  state
+) => {
+  return {
+    active: state.filter === state.visibilityFilter
+  }
+}
 
-const mapDispatchToLinkProps = (dispatch,ownProps) => ({
+const mapDispatchToLinkProps = (dispatch) => {
+  return {
     onClick: () => {
-      dispatch(setVisibilityFilter(ownProps.filter))
+      dispatch({
+        type: 'SET_VISIBILITY_FILTER',
+        filter: ownProps.filter
+      })
     }
-});
+  }
+}
 
 const FliterLink = connect(
   mapStateToLinkProps,
   mapDispatchToLinkProps
 )(Link)
 
+// class FliterLink extends React.Component {
+//   componentDidMount() {
+//     const { store } = this.context
+//     this.unsubscribe = store.subscribe(() =>
+//       this.forceUpdate()
+//     )
+//   }
+//
+//   componentWillUnmount() {
+//     this.unsubscribe()
+//   }
+//
+//   render() {
+//     const props = this.props
+//     const { store } = this.context
+//     const state = store.getState()
+//
+//     return(
+//       <Link
+//         active={
+//           props.filter === state.visibilityFilter
+//         }
+//         onClick = {() => {
+//           store.dispatch({
+//             type: 'SET_VISIBILITY_FILTER',
+//             filter: props.filter
+//           })
+//         }}
+//       >{props.children}</Link>
+//     )
+//
+//   }
+// }
+
+// FliterLink.contextTypes = {
+//   store: React.PropTypes.object
+// }
 const Footer = () => {
   return(
     <p>
@@ -139,24 +165,28 @@ const Todo = ( {onClick,
         onClick={onClick}
         style={{
           textDecoration: completed ? 'line-through' : 'none'
-        }}>
+        }}
+      >
         {text}
       </li>
     )
 }
 
+
 const TodoList = ({todos, onTodoClick}) => {
-  console.log(todos, onTodoClick)
+    console.log(todos, onTodoClick)
   return (<ul>
-    {todos.map(todo =>
-      <Todo
-        key={todo.id}
-        {...todo}
-        onClick={() => onTodoClick(todo.id)}
-      />
-    )}
-  </ul>)
+      {todos.map(todo =>
+        <Todo
+          key={todo.id}
+          {...todo}
+          onClick={() => onTodoClick(todo.id)}
+        />
+      )}
+    </ul>)
 }
+
+let nextTodoId = 0
 let AddTodo = ({dispatch}) => {
   let input
   return(
@@ -165,7 +195,11 @@ let AddTodo = ({dispatch}) => {
           input = node
         }}  />
         <button onClick={() => {
-          dispatch(addTodo(input.value))
+          dispatch({
+            type: 'ADD_TODO',
+            text: input.value,
+            id: nextTodoId++
+          })
           input.value = ''
         }}>
         Add Todo
@@ -177,7 +211,10 @@ AddTodo = connect(null, dispatch => {
   return { dispatch }
 })(AddTodo)
 
-const getVisivleTodos = (todos,filter) => {
+const getVisivleTodos = (
+  todos,
+  filter
+) => {
   switch (filter) {
     case 'SHOW_ALL':
       return todos;
@@ -187,24 +224,77 @@ const getVisivleTodos = (todos,filter) => {
      return todos.filter(t => t.completed)
   }
 }
-const mapStateToTodoProps = (state) => ({
+const mapStateToTodoProps = (state) => {
+  return {
     todos: getVisivleTodos(
       state.todos,
       state.visibilityFilter
     )
-});
+  }
+}
 
-const mapDispatchToTodoProps = (dispatch) => ({
+const mapDispatchToTodoProps = (dispatch) => {
+  return {
     onTodoClick: (id) => {
-        dispatch(toggleTodo(id))
+        dispatch({
+          type: 'TOGGLE_TODO',
+        id
+      })
     }
-});
+  }
+}
 
 const VisibleTodoList = connect(
   mapStateToTodoProps,
   mapDispatchToTodoProps
 )(TodoList)
 
+//REACT_REDUX Module
+//
+// class VisibleTodoList extends React.Component {
+//   componentDidMount() {
+//     const { store } = this.context
+//     this.unsubscribe = store.subscribe(() =>
+//       this.forceUpdate()
+//     )
+//   }
+//
+//   componentWillUnmount() {
+//     this.unsubscribe()
+//   }
+//
+//   render( ) {
+//     const props = this.props
+//       const { store } = this.context
+//     const state = store.getState()
+//
+//     return (
+//
+//       <TodoList
+//         todos={}
+//         onTodoClick = {id => {
+//         }}
+//         />
+//     )
+//   }
+// }
+// VisibleTodoList.contextTypes = {
+//   store: React.PropTypes.object
+// }
+// class Provider extends React.Component {
+//   getChildContext() {
+//     return{
+//       store: this.props.store
+//     }
+//   }
+//
+//   render() {
+//     return this.props.children
+//   }
+// }
+// Provider.childContextTypes = {
+//   store: React.PropTypes.object
+// }
 const TodoApp = () => (
   <div>
     <AddTodo />

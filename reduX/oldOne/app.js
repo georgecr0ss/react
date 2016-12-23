@@ -5,21 +5,27 @@ import ReactDOM from 'react-dom'
 
 //Action creators
 let nextTodoId = 0
-const addTodo = (text) => ({
+const addTodo = (text) => {
+  return {
     type: 'ADD_TODO',
     text,
     id: nextTodoId++
-});
+  }
+}
 
-const setVisibilityFilter = (filter) => ({
+const setVisibilityFilter = (filter) => {
+  return {
     type: 'SET_VISIBILITY_FILTER',
     filter
-});
+  }
+}
 
-const toggleTodo = (id) => ({
+const toggleTodo = (id) => {
+  return {
     type: 'TOGGLE_TODO',
     id
-});
+  }
+}
 const todo = (state, action) => {
   switch (action.type) {
     case "ADD_TODO":
@@ -98,15 +104,20 @@ const Link = ({
 const mapStateToLinkProps = (
   state,
   ownProps
-) => ({
+) => {
+  return {
     active: ownProps.filter === state.visibilityFilter
-});
+  }
+}
 
-const mapDispatchToLinkProps = (dispatch,ownProps) => ({
+const mapDispatchToLinkProps = (dispatch,ownProps) => {
+  console.log(ownProps);
+  return {
     onClick: () => {
       dispatch(setVisibilityFilter(ownProps.filter))
     }
-});
+  }
+}
 
 const FliterLink = connect(
   mapStateToLinkProps,
@@ -139,7 +150,8 @@ const Todo = ( {onClick,
         onClick={onClick}
         style={{
           textDecoration: completed ? 'line-through' : 'none'
-        }}>
+        }}
+      >
         {text}
       </li>
     )
@@ -177,7 +189,10 @@ AddTodo = connect(null, dispatch => {
   return { dispatch }
 })(AddTodo)
 
-const getVisivleTodos = (todos,filter) => {
+const getVisivleTodos = (
+  todos,
+  filter
+) => {
   switch (filter) {
     case 'SHOW_ALL':
       return todos;
@@ -187,18 +202,22 @@ const getVisivleTodos = (todos,filter) => {
      return todos.filter(t => t.completed)
   }
 }
-const mapStateToTodoProps = (state) => ({
+const mapStateToTodoProps = (state) => {
+  return {
     todos: getVisivleTodos(
       state.todos,
       state.visibilityFilter
     )
-});
+  }
+}
 
-const mapDispatchToTodoProps = (dispatch) => ({
+const mapDispatchToTodoProps = (dispatch) => {
+  return {
     onTodoClick: (id) => {
         dispatch(toggleTodo(id))
     }
-});
+  }
+}
 
 const VisibleTodoList = connect(
   mapStateToTodoProps,
