@@ -15,12 +15,11 @@ gulp.task('build', function () {
     .transform('babelify', {presets: ['es2015', 'react']})
     .bundle()
     .pipe(source('bundle.js'))
-    .pipe(gulp.dest('dist'))
-    .pipe(connect.reload())
+    .pipe(gulp.dest('public/dist'))
 })
 
 gulp.task('watch', ['build'], function () {
   gulp.watch('*.js', ['build'])
 })
 
-gulp.task('default', ['webserver', 'watch'])
+gulp.task('default', ['watch'])
