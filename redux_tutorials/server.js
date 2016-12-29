@@ -13,9 +13,9 @@ app.engine('html', cons.swig);
 app.set('view engine', 'html');
 app.set('views', path.join(__dirname + '/views'));
 
-app.get(['/', '/counter'], (req, res) => {
+app.get(['/', '/counter', '/avoid_mutation'], (req, res) => {
     res.render('index');
-})
+});
 
 app.listen(3000);
 

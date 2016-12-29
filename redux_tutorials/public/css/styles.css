@@ -7,7 +7,7 @@
     position: relative;
     margin: 0px auto;
     width: auto;
-    border: 1px solid black;
+    /*border: 1px solid black;*/
     height: 50px;
 }
 
@@ -20,5 +20,13 @@
     margin-left: 20px;
     padding: 5px 15px;
     width: auto;
-    border:1px solid red;
+    /*border:1px solid red;*/
+}
+
+.mutations-container {
+    width: 50%;
+    float: left;
+    padding-left: 35px;
+    display: block;
+    background-color: #ffff00;
 }

@@ -19,7 +19,7 @@ gulp.task('build', function () {
 })
 
 gulp.task('watch', ['build'], function () {
-  gulp.watch('*.js', ['build'])
+  gulp.watch(['app.js', './components/**/*.js'], ['build'])
 })
 
 gulp.task('default', ['watch'])
