@@ -1,7 +1,7 @@
-import CounterStore from '../store/counter-store';
+import CounterReducer from '../reducers/counter-reducer';
 
 export default {
     dispatch(actionType) {
-        CounterStore.dispatch({ type: actionType })
+        CounterReducer.dispatch({ type: actionType })
     }
 }

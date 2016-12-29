@@ -1,38 +1,45 @@
 import React from 'react';
 import Button from './reuseable/button';
-import CounterStore from '../store/counter-store';
+import CounterReducer from '../reducers/counter-reducer';
 
 export default  class Counter extends React.Component {
     getState() {
         return {
-            store: CounterStore.getState()
+            store: CounterReducer.getState()
         }
     }
     constructor() {
         super();
 
         this.state = this.getState();
-        this.storeHasUpdated= this.storeHasUpdated.bind(this);
+        this.stateHasUpdated= this.stateHasUpdated.bind(this);
     }
 
-    storeHasUpdated() {
+    stateHasUpdated() {
         this.setState({
-            store: CounterStore.getState()
+            store: CounterReducer.getState()
         })
     }
 
     componentDidMount() {
-        CounterStore.subscribe(this.storeHasUpdated);
+        CounterReducer.subscribe(this.stateHasUpdated);
     }
 
 
 
     render() {
+        let counters = this.state.store.map(counter => {
+            return (
+                <div>
+                    <h1>I am react Component</h1>
+                    <h2 id="counter">{this.state.store}</h2>
+                    <Button action={{id:this.state.store.id, type:'INCREMENT'}} name={'+'}/> <Button action={ {id: this.state.store.id, type:'DECREMENT'}} name={"-"}/>
+                </div>);
+        })
         return(
             <div>
-                <h1>I am react Component</h1>
-                <h2 id="counter">{this.state.store}</h2>
-                <Button actionType={'INCREMENT'} name={'+'}/> <Button actionType={'DECREMENT'} name={"-"}/>
+                <br/>
+                <Button actionType={'ADD_COUNTER'} name={'Add counter'}/> <Button actionType={'REMOVE_COUNTER'} name={"remove counter"}/>
             </div>
         )
     }

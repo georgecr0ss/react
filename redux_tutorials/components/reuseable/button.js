@@ -4,7 +4,7 @@ import CounterActions from '../../actions/counter-actions';
 export default (props) => {
     return(
         <button onClick={() => {
-            CounterActions.dispatch(props.actionType)
+            CounterActions.dispatch(props.action)
         }}>{props.name}</button>
     );
 }

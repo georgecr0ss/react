@@ -13,10 +13,7 @@ export default () => {
     const removeCounter = (list, index) => {
         // return list
         // .slice(0, index)
-        // .concat(list.slice(index + 1));
-        let arr = [6,9,6,8,63,2,8,9,6];
-        console.warn([...arr, 66, 669, 36594]);
-        console.warn(...arr.slice(0, 5), ...arr.slice(5 + 1));
+        // .concat(list.slice(index + 1)); 
         return [
             ...list.slice(0, index),
             ...list.slice(index + 1)

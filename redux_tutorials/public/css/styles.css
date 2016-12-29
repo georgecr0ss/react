@@ -30,3 +30,6 @@
     display: block;
     background-color: #ffff00;
 }
+.mutations-container li:first-child{
+    list-style: none;
+}
