@@ -2,6 +2,12 @@ import { createStore } from 'redux';
 
 let counter = (state = 0, action) => {
     switch(action.type) {
+        case 'ADD_COUNTER': 
+            return [
+                ...state, {
+                    counter
+                }
+            ]
         case 'INCREMENT':
             return state + 1;
         case 'DECREMENT':
