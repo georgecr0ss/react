@@ -45,9 +45,9 @@ export default () => {
         ).toEqual(listAfter);
 
         return {
-            listBefore,
-            listAfter,
-            testPassed: 'the array wasnt muteted by addCounter func'
+            listBefore: [...listBefore].join(', '),
+            listAfter: [...listAfter].join(', '),
+            testPassed: 'Add Element'
 
         }
 
@@ -64,27 +64,26 @@ export default () => {
         ).toEqual(listAfter)
 
         return {
-            listBefore,
-            listAfter,
-            testPassed: 'the array wasnt muteted by RemoveCounter  func'
+            listBefore: [...listBefore].join(', '),
+            listAfter: [...listAfter].join(', '),
+            testPassed: 'Remove element'
 
         }
 
     }
-    testRemoveCounter();
+    // testRemoveCounter();
 
     const testIncrementCounter = () => {
         const listBefore = [0, 10, 66];
         const listAfter = [0, 11, 66];
 
         deepFreez(listBefore);
-
         expect(
             incrementCounter(listBefore, 1)
         ).toEqual(listAfter, function(err){
             throw err;
         })
-        let lB = [...listBefore].join(', ')
+
         return {
             listBefore: [...listBefore].join(', '),
             listAfter: [...listAfter].join(', '),
@@ -92,7 +91,6 @@ export default () => {
 
         }
     }
-    testIncrementCounter
     console.warn('All test passed');
 
     const representData = (cb) => {
@@ -109,7 +107,9 @@ export default () => {
     return(
         <div className="mutations-container">
             <h2>Array Mutations Examples</h2>
-            {incrementCounterTest}
+            {representData(testAddCounter)}
+            {representData(testRemoveCounter)}
+            {representData(testIncrementCounter)}
         </div>
     )
 }
