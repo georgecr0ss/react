@@ -1,7 +1,8 @@
 import CounterReducer from '../reducers/counter-reducer';
 
 export default {
-    dispatch(actionType) {
-        CounterReducer.dispatch({ type: actionType })
+    dispatch(action) {
+        console.warn(action)
+        CounterReducer.dispatch(action)
     }
 }

@@ -28,18 +28,22 @@ export default  class Counter extends React.Component {
 
 
     render() {
+        console.log(...this.state.store)
+
         let counters = this.state.store.map(counter => {
             return (
-                <div>
+                <div key={counter.id}>
                     <h1>I am react Component</h1>
-                    <h2 id="counter">{this.state.store}</h2>
-                    <Button action={{id:this.state.store.id, type:'INCREMENT'}} name={'+'}/> <Button action={ {id: this.state.store.id, type:'DECREMENT'}} name={"-"}/>
+                    <h2 id="counter">{counter.count}</h2>
+                    <Button store={this.state.store} action={{id: counter.id, type:'INCREMENT'}} name={'+'}/> <Button store={this.state.store} action={ {id: counter.id, type:'DECREMENT'}} name={"-"}/>
+                     <Button store={this.state.store} action={{ id: counter.id, type:'REMOVE_COUNTER'}} name={"X"}/>
                 </div>);
         })
         return(
             <div>
+                {counters}
                 <br/>
-                <Button actionType={'ADD_COUNTER'} name={'Add counter'}/> <Button actionType={'REMOVE_COUNTER'} name={"remove counter"}/>
+                <Button action={{type: 'ADD_COUNTER'}} name={'Add counter'}/>
             </div>
         )
     }
