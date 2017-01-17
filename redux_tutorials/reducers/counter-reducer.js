@@ -1,30 +1,24 @@
 import { createStore } from 'redux';
 
-var id = 0;
+var id = 1;
 let getId = () => {
     console.log(id)
     return id++;
 }
-var state = [{
-    id: getId(),
-    count: 0
-},{
-    id: getId(),
-    count: 6
-}];
+// var state = ;
 
-let counters = (arr, action) => {
-    console.log(action, state)
+let counters = (obj) => {
+    console.warn(obj);
     switch(action.type) {
-        case 'ADD_COUNTER': 
+        case 'ADD_COUNTER':
             return [
                 ...state, {
-                    id: getId(),
+                    id:  id++,
                     count: 0
                 }
             ];
 
-        case 'REMOVE_COUNTER': 
+        case 'REMOVE_COUNTER':
             id--;
             return [
                 ...state.slice(0, action.id),

@@ -5,7 +5,7 @@ export default (props) => {
     console.warn(props.action)
     return(
         <button onClick={() => {
-            CounterActions.dispatch(props.action)
+            CounterActions.dispatch({state: props.state, action: props.action})
         }}>{props.name}</button>
     );
 }

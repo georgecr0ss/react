@@ -25,7 +25,7 @@ app.get(['/', '/counter', '/avoid_mutation'], (req, res) => {
     res.render('index');
 });
 
-app.get(['/events'], (req, res) => {
+app.get('/events', (req, res) => {
     console.log(req);
     res.render('events');
 });

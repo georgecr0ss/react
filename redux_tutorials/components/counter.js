@@ -5,7 +5,13 @@ import CounterReducer from '../reducers/counter-reducer';
 export default  class Counter extends React.Component {
     getState() {
         return {
-            store: CounterReducer.getState()
+            store: [{
+                        id: 0,
+                        count: 0
+                    },{
+                        id: 1,
+                        count: 6
+                    }]
         }
     }
     constructor() {
@@ -43,7 +49,7 @@ export default  class Counter extends React.Component {
             <div>
                 {counters}
                 <br/>
-                <Button action={{type: 'ADD_COUNTER'}} name={'Add counter'}/>
+                <Button state={this.state.store} action={{type: 'ADD_COUNTER'}} name={'Add counter'}/>
             </div>
         )
     }

@@ -8,14 +8,14 @@ export default () => {
         switch(action.type) {
             case 'ADD_TODO':
                 return [
-                    ...state, {                    
+                    ...state, {
                         completed: false,
-                        id: 0,
-                        text: 'Learn Readux'
+                        id: action.id,
+                        text: action.text
                     }
-                ]; 
-                
-            case 'TOGGLE_TODO': 
+                ];
+
+            case 'TOGGLE_TODO':
                 return state.map(todo => {
                     if (todo.id !== action.id) {
                         return todo;
@@ -23,8 +23,8 @@ export default () => {
 
                     return Object.assign({}, ...todo, {completed: !todo.completed} )
                 })
-            default: 
-            return state; 
+            default:
+            return state;
         }
     }
 
@@ -42,7 +42,7 @@ export default () => {
                 text: 'Learn Readux'
             }
         ];
-        
+
         deepFreeze(stateBefore);
         deepFreeze(action);
 
@@ -75,7 +75,7 @@ export default () => {
             type: 'TOGGLE_TODO',
             id: 1
         };
-        
+
         const stateAfter = [
             {
                 completed: false,
@@ -94,10 +94,10 @@ export default () => {
             }
         ];
 
-        
+
         deepFreeze(stateBefore);
         deepFreeze(action);
-        
+
         expect(
             todos(stateBefore, action)
         ).toEqual(stateAfter)

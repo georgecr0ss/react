@@ -11,7 +11,7 @@ export default class Header extends React.Component {
                         <li className="tabs"><Link to="counter">Counter</Link></li>
                         <li className="tabs"><Link to="">Store from Scratch</Link></li>
                         <li className="tabs"><Link to="avoid_mutation">Avoid Mutation</Link></li>
-                        <li className="tabs"><Link to="">Isomorphic React Redux</Link></li>
+                        <li className="tabs"><Link to="todo-app">Isomorphic React Redux - Todo App</Link></li>
                     </ul>
                 </nav>
                 <div>{this.props.children}</div>
